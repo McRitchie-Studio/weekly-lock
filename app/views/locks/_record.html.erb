@@ -1,0 +1,27 @@
+<% record = season.record %>
+<section class="card record" aria-labelledby="record-title">
+  <h2 id="record-title" class="eyebrow">Season record</h2>
+  <p class="record__line" data-record>
+    <span class="visually-hidden">Hits, misses, pushes: </span><%= record %>
+  </p>
+  <dl class="record__split">
+    <div><dt>Hits</dt><dd><%= record.hits %></dd></div>
+    <div><dt>Misses</dt><dd><%= record.misses %></dd></div>
+    <div><dt>Pushes</dt><dd><%= record.pushes %></dd></div>
+  </dl>
+  <p class="record__rate" data-win-rate>
+    <% if record.win_rate %>
+      <strong><%= number_with_precision(record.win_rate, precision: 1) %>%</strong> of decided picks
+    <% else %>
+      No decided picks yet
+    <% end %>
+  </p>
+  <p class="record__streak" data-streak><%= streak_label(season.streak) %></p>
+  <ol class="record__strip" aria-label="Results by week">
+    <% season.locks.each do |lock| %>
+      <li class="dot dot--<%= lock.result %>" title="Week <%= lock.week %>: <%= ApplicationHelper::RESULT_LABELS[lock.result] %>">
+        <span class="visually-hidden">Week <%= lock.week %>: <%= ApplicationHelper::RESULT_LABELS[lock.result] %></span>
+      </li>
+    <% end %>
+  </ol>
+</section>

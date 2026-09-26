@@ -1,0 +1,37 @@
+<% content_for :title, "Week #{@lock.week}: #{@lock.headline}" %>
+
+<nav class="crumbs"><a href="<%= root_path %>"><span aria-hidden="true">&larr;</span> All weeks</a></nav>
+
+<article class="week">
+  <p class="eyebrow">Week <%= @lock.week %> &middot; <%= posted_on(@lock) %>, <%= @lock.posted_on.year %></p>
+  <h1 class="week__headline"><%= @lock.headline %></h1>
+
+  <div class="card pick pick--week">
+    <%= team_badge(@lock.team, size: :lg) %>
+    <div>
+      <p class="pick__line" data-pick><%= @lock.pick %></p>
+      <p class="pick__matchup" data-matchup><%= @lock.matchup_long %></p>
+      <% if @lock.final? %>
+        <p class="pick__final" data-final>Final: <%= @lock.final_score %></p>
+      <% else %>
+        <p class="pick__final">Kickoff this weekend. The result lands here when it is final.</p>
+      <% end %>
+    </div>
+    <%= result_pill(@lock) %>
+  </div>
+
+  <div class="week__write-up" data-write-up>
+    <%= simple_format(@lock.write_up) %>
+  </div>
+
+  <nav class="pager" aria-label="Other weeks">
+    <% if @previous %>
+      <a rel="prev" href="<%= week_path(@previous.week) %>"><span aria-hidden="true">&larr;</span> Week <%= @previous.week %></a>
+    <% else %>
+      <span></span>
+    <% end %>
+    <% if @next %>
+      <a rel="next" href="<%= week_path(@next.week) %>">Week <%= @next.week %> <span aria-hidden="true">&rarr;</span></a>
+    <% end %>
+  </nav>
+</article>

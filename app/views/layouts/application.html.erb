@@ -1,28 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "Weekly Lock" %></title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} | The Weekly Lock" : "The Weekly Lock" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Weekly Lock">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
+    <meta name="description" content="One confident NFL pick, posted every Wednesday, with a running record of hits and misses.">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f1114" media="(prefers-color-scheme: dark)">
+    <meta name="application-name" content="The Weekly Lock">
+    <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : "The Weekly Lock" %>">
+    <meta property="og:type" content="website">
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="icon" href="/icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app %>
   </head>
 
   <body>
-    <%= yield %>
+    <header class="masthead">
+      <div class="wrap masthead__inner">
+        <a class="brand" href="<%= root_path %>">
+          <%= lock_icon %>
+          <span class="brand__text">
+            <span class="brand__name">The Weekly Lock</span>
+            <span class="brand__tag">One confident NFL pick. Every Wednesday.</span>
+          </span>
+        </a>
+        <span class="masthead__season"><%= @season.year %> season</span>
+      </div>
+    </header>
+
+    <% if @season.demo? %>
+      <p class="demo-notice" data-demo-notice>
+        <span class="wrap"><strong>Demo season.</strong> The matchups, lines and results here are invented to show how the site works. Not real games, and not betting advice.</span>
+      </p>
+    <% end %>
+
+    <main class="wrap">
+      <%= yield %>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <p>Every pick is against the spread. The record counts a cover as a hit, a loss against the number as a miss, and landing on it as a push.</p>
+        <p>A rebuild of <a href="https://github.com/amcritchie/the_weekly_lock">The Weekly Lock</a> (2016). Built with <a href="https://mcritchie.studio/build">McRitchie Studio</a>.</p>
+      </div>
+    </footer>
   </body>
 </html>

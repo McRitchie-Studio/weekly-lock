@@ -1,0 +1,38 @@
+<h1 class="visually-hidden">The Weekly Lock</h1>
+
+<div class="home">
+  <section class="card lock-card" data-this-week aria-labelledby="this-week-title">
+    <p class="eyebrow">This week's lock &middot; <%= posted_on(@lock) %></p>
+    <h2 id="this-week-title" class="lock-card__week">Week <%= @lock.week %></h2>
+
+    <div class="pick">
+      <%= team_badge(@lock.team, size: :lg) %>
+      <div>
+        <p class="pick__line" data-pick><%= @lock.pick %></p>
+        <p class="pick__matchup"><%= @lock.matchup_long %></p>
+      </div>
+      <%= result_pill(@lock) %>
+    </div>
+
+    <h3 class="lock-card__headline"><%= @lock.headline %></h3>
+    <p class="lock-card__excerpt"><%= @lock.write_up %></p>
+    <a class="button" href="<%= week_path(@lock.week) %>">Week <%= @lock.week %> in full <span aria-hidden="true">&rarr;</span></a>
+  </section>
+
+  <%= render "record", season: @season %>
+</div>
+
+<section class="season" data-season aria-labelledby="season-title">
+  <h2 id="season-title" class="section-title">Every lock this season</h2>
+  <ol class="season__list" reversed>
+    <% @season.locks.reverse_each do |lock| %>
+      <li class="season__row" data-week="<%= lock.week %>">
+        <span class="season__week">Week <%= lock.week %></span>
+        <%= team_badge(lock.team) %>
+        <span class="season__pick"><%= lock.pick %> <span class="season__opp"><%= lock.home ? "vs" : "at" %> <%= lock.opponent.abbr %></span></span>
+        <a class="season__headline" href="<%= week_path(lock.week) %>"><%= lock.headline %></a>
+        <%= result_pill(lock) %>
+      </li>
+    <% end %>
+  </ol>
+</section>
