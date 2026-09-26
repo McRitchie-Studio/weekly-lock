@@ -10,7 +10,8 @@ CI.run do
   step "Tests: Rails", "bin/rails test"
 
   # Optional: Run system tests
-  # step "Tests: System", "bin/rails test:system"
+  # System tests drive the pages in headless Chrome
+  step "Tests: System", "bin/rails test:system"
 
   # Optional: set a green GitHub commit status to unblock PR merge.
   # Requires the `gh` CLI and `gh extension install basecamp/gh-signoff`.
