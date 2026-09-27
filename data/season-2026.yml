@@ -1,0 +1,221 @@
+# The Weekly Lock: the 2026 season.
+#
+# DEMO DATA. The matchups, lines, scores and write-ups below are invented to
+# show how the site works. They are not real games, real results or betting
+# advice. The site says so on every page.
+#
+# One entry per week. The lock is posted on a Wednesday. Every pick is against
+# the spread: `spread` is the line on the team we took (-3.5 means they must
+# win by 4 or more; +3 means they may lose by 2 and still cover). Leave both
+# scores blank until the game is final; the week then reads as pending.
+# The record (hits, misses, pushes) is computed from the scores, never typed.
+
+year: 2026
+demo: true
+
+teams:
+  BAL: { name: Baltimore Ravens, color: "#241773" }
+  BUF: { name: Buffalo Bills, color: "#00338D" }
+  CHI: { name: Chicago Bears, color: "#0B162A" }
+  CIN: { name: Cincinnati Bengals, color: "#FB4F14" }
+  CLE: { name: Cleveland Browns, color: "#311D00" }
+  DAL: { name: Dallas Cowboys, color: "#003594" }
+  DET: { name: Detroit Lions, color: "#0076B6" }
+  GB: { name: Green Bay Packers, color: "#203731" }
+  HOU: { name: Houston Texans, color: "#03202F" }
+  KC: { name: Kansas City Chiefs, color: "#E31837" }
+  LAR: { name: Los Angeles Rams, color: "#003594" }
+  LV: { name: Las Vegas Raiders, color: "#000000" }
+  ARI: { name: Arizona Cardinals, color: "#97233F" }
+  MIN: { name: Minnesota Vikings, color: "#4F2683" }
+  NYG: { name: New York Giants, color: "#0B2265" }
+  NYJ: { name: New York Jets, color: "#125740" }
+  PHI: { name: Philadelphia Eagles, color: "#004C54" }
+  PIT: { name: Pittsburgh Steelers, color: "#101820" }
+  SEA: { name: Seattle Seahawks, color: "#002244" }
+  SF: { name: San Francisco 49ers, color: "#AA0000" }
+  TEN: { name: Tennessee Titans, color: "#0C2340" }
+  WAS: { name: Washington Commanders, color: "#5A1414" }
+
+weeks:
+  - week: 1
+    posted_on: 2026-09-09
+    team: PHI
+    opponent: DAL
+    home: true
+    spread: -3.5
+    team_score: 27
+    opponent_score: 20
+    headline: Opening night belongs to the lines
+    write_up: >-
+      The Eagles bring back the best offensive line in football and Dallas is
+      breaking in two new tackles. Philadelphia runs it thirty-five times, wins
+      the fourth quarter, and covers the hook with room to spare.
+
+  - week: 2
+    posted_on: 2026-09-16
+    team: BAL
+    opponent: CLE
+    home: false
+    spread: -6
+    team_score: 24
+    opponent_score: 13
+    headline: Six points is a discount
+    write_up: >-
+      Cleveland is starting a rookie behind a line that allowed five sacks in
+      Week 1, and Baltimore's front just got healthy. The Ravens have covered
+      big road numbers in this building before. Lay the six.
+
+  - week: 3
+    posted_on: 2026-09-23
+    team: DET
+    opponent: GB
+    home: true
+    spread: -2.5
+    team_score: 23
+    opponent_score: 24
+    headline: Home field in a division fight
+    write_up: >-
+      Detroit at home with a short line is the spot we wait for. The Lions'
+      offense is healthy, the Packers are on a short week, and a field goal
+      should decide it. We just need Detroit to be the team kicking it.
+
+  - week: 4
+    posted_on: 2026-09-30
+    team: KC
+    opponent: LV
+    home: true
+    spread: -7
+    team_score: 31
+    opponent_score: 17
+    headline: Arrowhead after a loss
+    write_up: >-
+      Kansas City has not lost two in a row at home in years, and the Raiders
+      cannot protect the quarterback. A touchdown is a fair number for a team
+      this angry. Chiefs by two scores.
+
+  - week: 5
+    posted_on: 2026-10-07
+    team: BUF
+    opponent: NYJ
+    home: true
+    spread: -4
+    team_score: 20
+    opponent_score: 16
+    headline: Wind, snow flurries, and a field goal
+    write_up: >-
+      The forecast in Orchard Park calls for gusts over twenty miles an hour,
+      which favors the team with the better running game. That is Buffalo.
+      Expect a grind; expect the Bills to finish it.
+
+  - week: 6
+    posted_on: 2026-10-14
+    team: SF
+    opponent: SEA
+    home: false
+    spread: -3
+    team_score: 27
+    opponent_score: 19
+    headline: The 49ers travel well
+    write_up: >-
+      San Francisco is the more complete roster and Seattle's secondary is
+      down two starters. The crowd noise matters less when your quarterback
+      gets the ball out in two seconds. Niners cover on the road.
+
+  - week: 7
+    posted_on: 2026-10-21
+    team: HOU
+    opponent: BAL
+    home: false
+    spread: 3
+    team_score: 21
+    opponent_score: 23
+    headline: Take the points, keep the game close
+    write_up: >-
+      Houston's pass rush can live in the Ravens' backfield, and the Texans
+      have played every contest this season within one score. We do not need
+      them to win. We need them to lose by two or fewer.
+
+  - week: 8
+    posted_on: 2026-10-28
+    team: CIN
+    opponent: TEN
+    home: true
+    spread: -5.5
+    team_score: 20
+    opponent_score: 17
+    headline: Cincinnati against a tired defense
+    write_up: >-
+      Tennessee is coming off an overtime game on a short week and Cincinnati's
+      receivers are finally all healthy. The Bengals should score early and
+      often. Five and a half is a number they clear by halftime.
+
+  - week: 9
+    posted_on: 2026-11-04
+    team: LAR
+    opponent: ARI
+    home: true
+    spread: -2.5
+    team_score: 30
+    opponent_score: 24
+    headline: The Rams at home in the dome
+    write_up: >-
+      Los Angeles owns this matchup, and the Cardinals' defense ranks near the
+      bottom against the pass. Indoors, fast track, a short line. The Rams win
+      by a score.
+
+  - week: 10
+    posted_on: 2026-11-11
+    team: GB
+    opponent: MIN
+    home: false
+    spread: 2
+    team_score: 17
+    opponent_score: 26
+    headline: A live underdog in the North
+    write_up: >-
+      Minnesota has been winning on turnovers and that does not last. Green Bay
+      runs the ball better and the points are a cushion. This one should be
+      decided in the last five minutes.
+
+  - week: 11
+    posted_on: 2026-11-18
+    team: WAS
+    opponent: NYG
+    home: true
+    spread: -3
+    team_score: 28
+    opponent_score: 14
+    headline: Washington closes the door
+    write_up: >-
+      The Commanders are the better team on both lines and the Giants have
+      scored one touchdown in their last two road trips. A field goal is too
+      small a number. Washington by two touchdowns.
+
+  - week: 12
+    posted_on: 2026-11-25
+    team: DET
+    opponent: CHI
+    home: true
+    spread: -6.5
+    team_score: 34
+    opponent_score: 20
+    headline: Thanksgiving in Detroit
+    write_up: >-
+      Detroit on Thanksgiving is an event and the Lions play like it. Chicago
+      has to travel on a short week to face the league's best rushing attack.
+      Bring an appetite and lay the points.
+
+  - week: 13
+    posted_on: 2026-12-02
+    team: PHI
+    opponent: PIT
+    home: true
+    spread: -4
+    team_score:
+    opponent_score:
+    headline: December football in Philadelphia
+    write_up: >-
+      Pittsburgh wins ugly, but ugly does not travel to the Linc in December.
+      The Eagles have the better quarterback, the better lines and the loudest
+      building in the league. Philadelphia by a touchdown.
