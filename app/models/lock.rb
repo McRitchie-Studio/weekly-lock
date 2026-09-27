@@ -1,7 +1,13 @@
 # One week's lock: the team we took, the line, and (once final) the score.
 Lock = Data.define(:week, :posted_on, :team, :opponent, :home, :spread,
                    :team_score, :opponent_score, :headline, :write_up) do
+  # Posted on a Wednesday; Sunday's games and Monday night's are over by
+  # the Tuesday after, so the week is graded from then.
+  GRADED_AFTER_DAYS = 6
+
   def final? = !team_score.nil?
+
+  def graded_by?(date) = date >= posted_on + GRADED_AFTER_DAYS
 
   # Against the spread: the team's score plus the line, compared with the
   # opponent's. Above covers (a hit), level is a push, below is a miss.

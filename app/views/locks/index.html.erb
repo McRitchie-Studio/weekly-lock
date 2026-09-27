@@ -1,23 +1,31 @@
 <h1 class="visually-hidden">The Weekly Lock</h1>
 
 <div class="home">
-  <section class="card lock-card" data-this-week aria-labelledby="this-week-title">
-    <p class="eyebrow">This week's lock &middot; <%= posted_on(@lock) %></p>
-    <h2 id="this-week-title" class="lock-card__week">Week <%= @lock.week %></h2>
+  <% if @lock %>
+    <section class="card lock-card" data-this-week aria-labelledby="this-week-title">
+      <p class="eyebrow">This week's lock &middot; <%= posted_on(@lock) %></p>
+      <h2 id="this-week-title" class="lock-card__week">Week <%= @lock.week %></h2>
 
-    <div class="pick">
-      <%= team_badge(@lock.team, size: :lg) %>
-      <div>
-        <p class="pick__line" data-pick><%= @lock.pick %></p>
-        <p class="pick__matchup"><%= @lock.matchup_long %></p>
+      <div class="pick">
+        <%= team_badge(@lock.team, size: :lg) %>
+        <div>
+          <p class="pick__line" data-pick><%= @lock.pick %></p>
+          <p class="pick__matchup"><%= @lock.matchup_long %></p>
+        </div>
+        <%= result_pill(@lock) %>
       </div>
-      <%= result_pill(@lock) %>
-    </div>
 
-    <h3 class="lock-card__headline"><%= @lock.headline %></h3>
-    <p class="lock-card__excerpt"><%= @lock.write_up %></p>
-    <a class="button" href="<%= week_path(@lock.week) %>">Week <%= @lock.week %> in full <span aria-hidden="true">&rarr;</span></a>
-  </section>
+      <h3 class="lock-card__headline"><%= @lock.headline %></h3>
+      <p class="lock-card__excerpt"><%= @lock.write_up %></p>
+      <a class="button" href="<%= week_path(@lock.week) %>">Week <%= @lock.week %> in full <span aria-hidden="true">&rarr;</span></a>
+    </section>
+  <% else %>
+    <section class="card lock-card" data-this-week data-preseason aria-labelledby="this-week-title">
+      <p class="eyebrow">This week's lock</p>
+      <h2 id="this-week-title" class="lock-card__week">The <%= @season.year %> season starts soon</h2>
+      <p class="lock-card__excerpt">The first lock posts on the Wednesday before Week 1. Check back then.</p>
+    </section>
+  <% end %>
 
   <%= render "record", season: @season %>
 </div>

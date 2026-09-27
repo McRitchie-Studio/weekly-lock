@@ -7,7 +7,18 @@ module ApplicationHelper
 
   def team_badge(team, size: nil)
     tag.span(team.abbr, class: [ "badge", ("badge--#{size}" if size) ],
-      style: "--team: #{team.color}", title: team.name, aria: { hidden: true })
+      style: "--team: #{team.color}; --team-ink: #{badge_ink(team.color)}", title: team.name, aria: { hidden: true })
+  end
+
+  # White on the team color when that reads at WCAG AA (4.5:1); near-black
+  # otherwise, as on Cincinnati's orange.
+  def badge_ink(hex)
+    channels = hex.delete_prefix("#").scan(/../).map do |pair|
+      c = pair.hex / 255.0
+      c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055)**2.4
+    end
+    luminance = 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]
+    1.05 / (luminance + 0.05) >= 4.5 ? "#fff" : "#111"
   end
 
   def posted_on(lock)

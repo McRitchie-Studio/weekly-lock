@@ -2,6 +2,8 @@ require "test_helper"
 
 # Component tier: the pages as rendered HTML.
 class LocksControllerTest < ActionDispatch::IntegrationTest
+  # The day after Week 13's lock posts: the whole checked-in season is out.
+  setup { travel_to Time.zone.local(2026, 12, 3, 12) }
   test "/up answers 200 with no database" do
     get rails_health_check_path
     assert_response :success
@@ -70,6 +72,57 @@ class LocksControllerTest < ActionDispatch::IntegrationTest
     get "/weeks/99"
     assert_response :not_found
     get "/weeks/0"
+    assert_response :not_found
+  end
+
+  test "on a September Saturday only the weeks posted so far show, and this week's game is not yet graded" do
+    travel_to Time.zone.local(2026, 9, 26, 12)
+    get root_path
+    assert_select "[data-this-week]" do
+      assert_select "h2", /Week 3/
+      assert_select "[data-result=pending]"
+    end
+    assert_select "[data-record]", /2-0-0/
+    rows = css_select("[data-season] li[data-week]")
+    assert_equal [ 3, 2, 1 ], rows.map { |row| row["data-week"].to_i }
+
+    get week_path(3)
+    assert_select "[data-result=pending]"
+    assert_select "[data-final]", 0
+    assert_select "a[rel=next]", 0
+  end
+
+  test "a week not yet posted is a 404" do
+    travel_to Time.zone.local(2026, 9, 26, 12)
+    get week_path(4)
+    assert_response :not_found
+  end
+
+  test "the week turns over at midnight Eastern, not UTC" do
+    # 11pm Tuesday Eastern is already Wednesday in UTC; Week 4 is not out yet.
+    # The zone is named here, not read from Time.zone, so the test pins the app's.
+    eastern = ActiveSupport::TimeZone["America/New_York"]
+    travel_to eastern.local(2026, 9, 29, 23)
+    get root_path
+    assert_select "[data-this-week] h2", /Week 3/
+    assert_select "[data-record]", /2-1-0/
+
+    travel_to eastern.local(2026, 9, 30, 0, 1)
+    get root_path
+    assert_select "[data-this-week] h2", /Week 4/
+  end
+
+  test "before the first lock the home page says the season starts soon" do
+    travel_to Time.zone.local(2026, 9, 1, 12)
+    get root_path
+    assert_response :success
+    assert_select "[data-preseason]", /starts soon/
+    assert_select "[data-record]", /0-0-0/
+    assert_select "[data-season] li[data-week]", 0
+  end
+
+  test "a zero-padded week is not a second address" do
+    get "/weeks/007"
     assert_response :not_found
   end
 

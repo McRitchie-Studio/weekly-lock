@@ -88,6 +88,31 @@ class SeasonTest < ActiveSupport::TestCase
     assert_nil season(week(1, spread: -3)).streak
   end
 
+  test "as of a date, only locks posted by then show, and a score only from the Tuesday after" do
+    s = season(week(1, spread: -3, us: 30, them: 10), week(2, spread: -3, us: 30, them: 10), week(3, spread: -3, us: 0, them: 10))
+    # Week 2 posts 2026-09-16; its games are over by Tuesday 2026-09-22.
+    monday = s.as_of(Date.new(2026, 9, 21))
+    assert_equal [ 1, 2 ], monday.locks.map(&:week)
+    assert_equal :pending, monday.this_week.result
+    assert_equal "1-0-0", monday.record.to_s
+
+    tuesday = s.as_of(Date.new(2026, 9, 22))
+    assert_equal :hit, tuesday.this_week.result
+    assert_equal "2-0-0", tuesday.record.to_s
+
+    assert_equal 3, s.as_of(Date.new(2026, 9, 23)).this_week.week
+    assert_equal s.locks, s.as_of(Date.new(2027, 1, 1)).locks
+  end
+
+  test "as of a date before the first lock, the season is empty but still demo" do
+    early = season(week(1, spread: -3, us: 30, them: 10)).as_of(Date.new(2026, 9, 8))
+    assert_empty early.locks
+    assert_nil early.this_week
+    assert_equal "0-0-0", early.record.to_s
+    assert_nil early.streak
+    assert early.demo?
+  end
+
   test "find returns the week or nil" do
     s = season(week(1, spread: -3), week(2, spread: -3))
     assert_equal 2, s.find(2).week

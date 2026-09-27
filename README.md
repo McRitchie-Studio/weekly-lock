@@ -40,7 +40,7 @@ page. When the game is final, fill in `team_score` and `opponent_score`.
 
 ```bash
 bundle install
-bin/rails server -p 3811
+bin/rails server -p 3900
 bin/rails test               # unit + request + production https probe
 bin/rails test:system        # the pages in headless Chrome, desktop and phone
 bin/ci                       # everything CI runs

@@ -14,6 +14,6 @@ class LocksController < ApplicationController
   private
 
   def set_season
-    @season = Season.current
+    @season = Season.current.as_of(Date.current)
   end
 end

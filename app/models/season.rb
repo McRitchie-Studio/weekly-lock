@@ -56,9 +56,20 @@ class Season
 
   def demo? = @demo
 
+  # The season as a visitor sees it on `date`: only the locks posted by then,
+  # and a score only once that week's games are over. The file runs ahead of
+  # the calendar, so without this a December lock would read as this week's.
+  def as_of(date)
+    shown = locks.select { |lock| lock.posted_on <= date }.map do |lock|
+      lock.graded_by?(date) ? lock : lock.with(team_score: nil, opponent_score: nil)
+    end
+    self.class.new(year: year, demo: demo?, locks: shown)
+  end
+
   def find(number) = locks.find { |lock| lock.week == number }
 
-  # The lock on top of the home page: the latest one posted.
+  # The lock on top of the home page: the latest one posted. Nil before the
+  # season's first lock.
   def this_week = locks.last
 
   def graded = locks.select(&:final?)

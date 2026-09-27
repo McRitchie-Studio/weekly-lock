@@ -14,6 +14,10 @@ module WeeklyLock
 
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Locks post on Wednesdays, Eastern: "this week" turns over on NFL time,
+    # not the server's UTC clock.
+    config.time_zone = "Eastern Time (US & Canada)"
+
     # Public pages with no forms and no sign-in: no session, so no cookie.
     config.session_store :disabled
   end

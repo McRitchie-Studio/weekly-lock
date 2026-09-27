@@ -2,6 +2,8 @@ require "application_system_test_case"
 
 # E2E tier: a visitor reads the lock, opens a past week, and walks the season.
 class WeeklyLockTest < ApplicationSystemTestCase
+  # The day after Week 13's lock posts: the whole checked-in season is out.
+  setup { travel_to Time.zone.local(2026, 12, 3, 12) }
   test "home to a past week, across to its neighbour, and back" do
     visit root_path
     assert_selector ".brand", text: /the weekly lock/i
