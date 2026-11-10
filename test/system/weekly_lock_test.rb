@@ -24,8 +24,9 @@ class WeeklyLockTest < ApplicationSystemTestCase
   end
 
   test "the phone layout keeps the lock and record readable without sideways scroll" do
-    page.driver.browser.manage.window.resize_to(390, 844)
+    phone_viewport!(390)
     visit root_path
+    assert_viewport_width(390)
     assert_selector "[data-this-week] [data-pick]", text: "PHI -4"
     scroll_width = page.evaluate_script("document.documentElement.scrollWidth")
     client_width = page.evaluate_script("document.documentElement.clientWidth")
