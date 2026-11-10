@@ -2,6 +2,9 @@
 require "rubygems"
 require "bundler/setup"
 
-ARGV.unshift("--ensure-latest")
+# Any warning exits non-zero, so CI's scan_ruby lane fails on a new finding.
+# --ensure-latest stays off: it made brakeman exit 5 when a newer brakeman was
+# released upstream, with no code change, and that hid bin/bundler-audit (the
+# next step) behind the red. Upgrade brakeman through Gemfile.lock instead.
 
 load Gem.bin_path("brakeman", "brakeman")
